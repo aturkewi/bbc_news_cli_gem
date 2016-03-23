@@ -1,5 +1,9 @@
-require "bbc_news_cli_gem/version"
+require 'open-uri'
+require 'pry'
+require 'nokogiri'
+require 'require_all'
+
+require_all 'lib/.'
 
 module BbcNewsCliGem
-  # Your code goes here...
 end

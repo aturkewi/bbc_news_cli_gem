@@ -1,0 +1,3 @@
+class BbcNewsCliGem::Scraper
+
+end
