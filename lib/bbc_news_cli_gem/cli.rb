@@ -3,7 +3,7 @@ class BbcNewsCliGem::CLI
   attr_reader :web_page
 
   def initialize
-    front_page_scraper = BbcNewsCliGem::Scraper.new("http://www.bbc.com/news")
+    front_page_scraper = BbcNewsCliGem::Scraper.new(BbcNewsCliGem::RootAddress+"/news")
     @web_page = front_page_scraper.scrape_front_page
   end
 
@@ -28,6 +28,17 @@ class BbcNewsCliGem::CLI
     help
   end
 
+  def get_article(input)
+    article_index = input.split(" ").last.to_i - 1
+    web_page.articles[article_index]
+  end
+
+  def check_for_open(article)
+    puts "Do you want to open the article in the browser? (y/n)"
+    input = gets.chomp
+    article.open if input == "y"
+  end
+
   def main_loop
     puts "What would you like to do?"
     input = gets.chomp
@@ -41,7 +52,9 @@ class BbcNewsCliGem::CLI
     when "exit"
       puts "Whatevery, I didn't want you to read the news anyway. "
     when /^article/
-      puts "Looks like you want to read and article"
+      article = get_article(input)
+      article.display
+      check_for_open(article)
       main_loop
     else
       puts "I'm sorry, I don't know what you're saying"

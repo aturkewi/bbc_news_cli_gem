@@ -13,8 +13,13 @@ class BbcNewsCliGem::Scraper
     web_page
   end
 
-  def get_summary
-    
+  def scrape_intro
+    raw_intro = raw_page.css('p.story-body__introduction')
+    if raw_intro.first == nil
+      "No Intro"
+    else
+      raw_intro.text.strip
+    end
   end
 
   private
